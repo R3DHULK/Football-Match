@@ -1,0 +1,368 @@
+body {
+    font-family: arial, helvetica;
+    font-size:19px;
+    margin:0;
+    background-color:#d2e6c2;
+}
+#main {
+    position:relative;
+    margin:auto;
+    width:360px;
+    height:440px;
+    background-image:url(https://i.imgur.com/QSIH47g.png);
+    background-repeat:no-repeat;
+}
+#walls {
+    position:absolute;
+    width:293px;
+    height:360px;
+    top:42px;
+    left:32px;
+}
+.players_line {
+    position:absolute;
+    width:100%;
+    height:66px;
+    left:0;
+}
+.players {
+    position:absolute;
+    width:35px;
+    height:66px;
+    top:0;
+    background-image:url(https://i.imgur.com/Edwy37M.png);
+    display:none;
+}
+.sticks {
+    position:absolute;
+    width:360px;
+    height:20px;
+    left:0;
+    top:25px;
+    background-image:url(https://i.imgur.com/nfZNbZ2.png);
+}
+
+button {
+    position:absolute;
+    top:398px;
+    left:90px;
+    width:175px;
+    height: 50px;
+    font-size:19px;
+    font-family:arial, helvetica;
+    font-weight:bold;
+    padding:7px 15px 7px 15px;
+    margin:10px 0 0 0;
+    border:2px solid #202020;
+    -webkit-border-radius:25px;
+    -moz-border-radius:25px;
+    border-radius:25px;
+    background-color:#ffffff;
+    color:#202020;
+    cursor:pointer;
+}
+button:hover {
+    background-color:#202020;
+    border:2px solid #202020;
+    color:#ffffff;
+}
+#ball {
+    position:absolute;
+    top:330px;
+    left:130px;
+    width:33px;
+    height:33px;
+    display:none;
+}
+#ball_image {
+    position:absolute;
+    top:0;
+    left:0;
+    width:33px;
+    height:33px;
+    background-image:url(https://i.imgur.com/FcvhAVw.png);
+}
+#ball_direction {
+    position:absolute;
+    width:32px;
+    height:100px;
+    bottom:16px;
+    left:0;
+    -webkit-transform-origin: center bottom;
+    -moz-transform-origin: center bottom;
+    -ms-transform-origin: center bottom;
+    -o-transform-origin: center bottom;
+    transform-origin: center bottom;
+    background-image:url(https://i.imgur.com/VTONTxo.png);
+    -webkit-animation:directions 0.4s steps(10) infinite;
+    -moz-animation:directions 0.4s steps(10) infinite;
+    -ms-animation:directions 0.4s steps(10) infinite;
+    -o-animation:directions 0.4s steps(10) infinite;
+    animation:directions 0.4s steps(10) infinite;
+}
+@keyframes directions {
+    100% {background-position:-320px; }
+}
+.slider {
+    position:absolute;
+    top:405px;
+    left:40px;
+    width:275px;
+    height: 50px;
+    border-radius: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.6;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    display:none;
+}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #707070;
+    cursor: pointer;
+    background-image:url(https://i.imgur.com/p8DUpGn.png);
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+.slider::-moz-range-thumb {
+    -moz-appearance: none;
+    appearance: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #707070;
+    cursor: pointer;
+    background-image:url(https://i.imgur.com/p8DUpGn.png);
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+#goal {
+    position:absolute;
+    top:200px;
+    left:45px;
+    width:269px;
+    height:74px;
+    background-image:url(https://i.imgur.com/OA0rPNQ.png);
+    background-repeat:no-repeat;
+    background-size:1%;
+    background-position:center center;
+    display:none;
+}
+/**** CSS for tutorial ***/
+.toggleMobile {
+    position:absolute;
+    top:0;
+    left:0;
+    width:40px;
+    height:40px;
+    cursor: pointer;
+    z-index: 20001;
+}
+.toggleMobile span.menu1, .toggleMobile span.menu2, .toggleMobile span.menu3 {
+    display: block;
+    position: absolute;
+    width: 33px;
+    height: 6px;
+    left: 4px;
+    background-color:#737373;
+    -webkit-transition: all 0.35s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+    transition: all 0.35s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+}
+.toggleMobile span.menu1 {
+    top: 4px;
+}
+.toggleMobile span.menu2 {
+    top: 15px;
+}
+.toggleMobile span.menu3 {
+    top: 26px;
+}
+.toggleMobile.active span.menu1 {
+    top: 14px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transition: all 0.35s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+    transition: all 0.5s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+    background-color:#ffffff;
+}
+.toggleMobile.active span.menu2 {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transition: all 0.35s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+    transition: all 0.5s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+    background-color:#ffffff;
+}
+.toggleMobile.active span.menu3 {
+    opacity: 0;
+    -webkit-transition: opacity 0.35s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+    transition: opacity 0.35s cubic-bezier(0.75, 0.25, 0.10, 0.95);
+}
+a {
+    text-decoration:none;
+    color:inherit;
+    transition: color .5s ease;
+}
+.links {
+    text-decoration:underline;
+    font-weight:bold;
+    color:#ababab;
+}
+.external {
+    text-decoration:underline;
+    font-weight:bold;
+    color:blue;
+}
+#mobileMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+    background: #737373;
+    z-index:20000;
+}
+#mobileMenu ul li {
+    display:block;
+    color: #ffffff;
+    padding: 10px 20px;
+    letter-spacing: 0.1em;
+    text-align: left;
+    text-transform: uppercase;
+}
+#tutorial {
+    position:absolute;
+    top:0;
+    left:0;
+    background-color:#eeeeee;
+    z-index:100;
+xdisplay:none;
+}
+.lessons {
+    position:absolute;
+    top:10px;
+    left:10px;
+    border:1px solid #c7c7c7;
+    background-color:#ffffff;
+    overflow:hidden;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(199,199,199,1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(199,199,199,1);
+    box-shadow: 0px 0px 10px 0px rgba(199,199,199,1);
+}
+#menu {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:40px;
+    border-bottom:1px solid #c7c7c7;
+}
+.menu_titles {
+    position:absolute;
+    top:7px;
+    left:50px;
+    color:#737373;
+    font-size:23px;
+    font-weight:bold;
+}
+.tutorial_content {
+    position:absolute;
+    top:41px;
+    left:0;
+    padding:10px;
+    color:#737373;
+    font-size:17px;
+    overflow:auto;
+}
+.notes {
+    padding:5px;
+    background-color:#eeea87;
+    border:1px solid #c9c44c;
+    border-left:6px solid #c9c44c;
+    font-size:16px;
+}
+.notes div {
+    background-image:url(https://i.imgur.com/yUYuBE4.png);
+    background-repeat:no-repeat;
+    padding-left:40px;
+}
+pre {
+    font-size:13px;
+    position:relative;
+    padding:5px;
+    background-color:#efefef;
+    border:1px solid #0b560c;
+    border-left:6px solid #0b560c;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+pre div {
+    position:absolute;
+    top:3px;
+    right:3px;
+    background-color:#505050;
+    color:#ffffff;
+    font-size:10px;
+    padding:3px 5px 3px 5px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+}
+.next {
+    float:right;
+    border:2px solid #737373;
+    font-weight:bold;
+    padding:6px;
+    cursor:pointer;
+    color:#737373;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+.back {
+    position:absolute;
+    bottom:5px;
+    left:5px;
+    border:2px solid #737373;
+    font-weight:bold;
+    padding:6px;
+    cursor:pointer;
+    color:#737373;
+    background-color:#ffffff;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+.next:hover,.back:hover {
+    background-color:#737373;
+    color:#ffffff;
+}
+.letmesee {
+    width:100%;
+    cursor:pointer;
+    text-align:center;
+}
+.letmesee:hover {
+    color:#ab0000;
+}

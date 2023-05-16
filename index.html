@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Football Match</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./Ball100.png" type="image/x-icon">
+</head>
+
+<body>
+    <meta name="description" content="Foosball Game [Tutorial]">
+    <meta name="keywords" content="sololearn,foosball game,tutorial">
+    <meta name="date" content="2018-03-04" scheme="YYYY-MM-DD">
+    <meta name="revised" content="2018-03-04" scheme="YYYY-MM-DD">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <div id="main">
+        <div style="position:absolute;top:3px;left:0;width:100%;">
+            <div style="float:left;margin:0 0 0 15px;">Kicks: <span id="kicks">0</span></div>
+            <div style="float:right;margin:0 15px 0 0;">Goals: <span id="goals">0</span></div>
+        </div>
+        <div id="walls">
+            <div id="ball">
+                <div id="ball_direction"></div>
+                <div id="ball_image"></div>
+            </div>
+        </div>
+        <div class="players_line" id="players_line_1" style="top:50px;">
+            <div class="sticks"></div>
+            <div class="players" style="left:162px;background-position:35px 0px"></div>
+        </div>
+        <div class="players_line" id="players_line_2" style="top:145px;">
+            <div class="sticks"></div>
+            <div class="players" style="left:92px;background-position:0 0"></div>
+            <div class="players" style="left:232px;background-position:-35px 0"></div>
+        </div>
+        <div class="players_line" id="players_line_3" style="top:260px;">
+            <div class="sticks"></div>
+            <div class="players" style="left:112px;background-position:-70px 0"></div>
+            <div class="players" style="left:212px;background-position:-105px 0"></div>
+        </div>
+        <input id="deg" class="slider" type="range" min="-60" max="60" value="0" />
+        <button id="playagain">Play</button>
+        <div id="goal"></div>
+    </div>
+    <div id="tutorial">
+        <div class="lessons" id="lesson_01">
+            <div id="menu">
+                <div id="menu_lines"></div>
+                <div class="menu_titles">Game Tutorial Click Next TO Play The Game</div>
+                <div class="menu_titles" style="display:none;">Resources</div>
+                <div class="menu_titles" style="display:none;">Game Field</div>
+                <div class="menu_titles" style="display:none;">Players &amp; Movement</div>
+                <div class="menu_titles" style="display:none;">Ball &amp; Movement</div>
+                <div class="menu_titles" style="display:none;">Collisions</div>
+                <div class="menu_titles" style="display:none;">goal() &amp; fail()</div>
+                <div class="menu_titles" style="display:none;">Final By <strong>Sumalya Chatterjee</strong></div>
+                <div class="toggleMobile">
+                    <span class="menu1"></span>
+                    <span class="menu2"></span>
+                    <span class="menu3"></span>
+                </div>
+                <div id="mobileMenu">
+                    <ul>
+                        <li><a href="javascript:show_tutorial(0);">Welcome</a></li>
+                        <li><a href="javascript:show_tutorial(1);">Resources</a></li>
+                        <li><a href="javascript:show_tutorial(2);">Game Field</a></li>
+                        <li><a href="javascript:show_tutorial(3);">Players &amp; Movement</a></li>
+                        <li><a href="javascript:show_tutorial(4);">Ball &amp; Movement</a></li>
+                        <li><a href="javascript:show_tutorial(5);">Collisions</a></li>
+                        <li><a href="javascript:show_tutorial(6);">goal() &amp; fail()</a></li>
+                        <li><a href="javascript:show_tutorial(7);">Final</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tutorial_content">
+                In this step-by-step tutorial we will create a simple <b>Foosball Game</b> using HTML, CSS, Javascript
+                and JQuery.<br><br>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> To get the most out of this series of lessons you should already have basic to
+                        intermediate JavaScript/JQuery knowledge.
+                    </div>
+                </div>
+                <br>
+                <b>About the Game:</b><br>
+                Foosball (or Table Football) is a tabletop version of soccer in which players turn rods fixed on top of
+                a playing box and attached to miniature figures of players, in order to flick the ball and strike it
+                toward the goal.<br><br>
+                In our game, the player will try to make a goal, kicking the ball at a certain angle so that opposing
+                players do not stop it. Note that you can use the field walls to bounce the ball.<br><br>
+                <div class="next" id="next_1">Next: Resources</div>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+            <div class="tutorial_content" style="display:none;">
+                For our game, I have created the following images:<br><br>
+                <strong>FIELD:</strong><br>
+                This will be the background of our game.<br>
+                Format: PNG, width: 360px, height: 532px.<br>
+                <a class="links" href="https://i.imgur.com/QSIH47g.png" target="_blank">See the image</a><br><br>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> I have selected the width of the game field in 360px because this width ensures
+                        maximum compatibility with most devices.
+                    </div>
+                </div>
+                <br>
+                <strong>RODS:</strong><br>
+                This will be the background of our game.<br>
+                Format: transparent PNG<br>
+                width: 360px, height: 20px.<br>
+                <a class="links" href="https://i.imgur.com/nfZNbZ2.png" target="_blank">See the image</a><br><br>
+                <strong>PLAYERS:</strong><br>
+                I have created two sets of players (which simulate FC Barcelona and Real Madrid).<br>
+                Format: transparent PNG<br>
+                Total width: 210px, total height: 132px.<br>
+                Each player: width: 35px, height: 66px.<br>
+                <a class="links" href="https://i.imgur.com/Edwy37M.png" target="_blank">See the image</a><br><br>
+                <strong>BALL:</strong><br>
+                This is the ball you will kick.<br>
+                Format: transparent PNG<br>
+                width: 33px, height: 33px.<br>
+                <a class="links" href="https://i.imgur.com/FcvhAVw.png" target="_blank">See the image</a><br><br>
+                <strong>BALL DIRECTION:</strong><br>
+                This image indicates the direction where the ball will be kicked.<br>
+                Format: transparent PNG<br>
+                Total width: 320px, height: 100px.<br>
+                Each sprite: width: 32px, height: 100px.<br>
+                <a class="links" href="https://i.imgur.com/VTONTxo.png" target="_blank">See the image</a><br><br>
+                <div class="next" id="next_2">Next: Game Field</div>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+            <div class="tutorial_content" style="display:none;">
+                We will use:
+                <pre><div>HTML</div>&lt;div id="main"&gt;
+&lt;/div&gt;</pre>
+                as a container where the objects of the game will be. The CSS of main is:<br>
+                <pre><div>CSS</div>#main {
+   position: relative;
+   margin: auto;
+   width: 360px;
+   height: 0;
+   background-image: url(field.png);
+   background-repeat: no-repeat;
+}</pre>
+                <b>position: relative;</b> it is necessary because some objects within <b>#main</b> will have an
+                absolute positioning.<br>
+                <b>margin: auto;</b> assures that <b>#main</b> will be horizontally centered in the browser.<br>
+                <b>width: 360px;</b> makes the width of <b>#main</b> equal to the width of <b>field.png</b>.<br>
+                <b>height: 0;</b> makes the height of <b>#main</b> equals to zero. This height will be adjusted after
+                the DOM load, via JS/JQuery.<br>
+                <b>background-image: url(field.png); &amp;<br>
+                    background-repeat: no-repeat;</b> shows the image <b>field.png</b> as the background of <b>#main</b>
+                with no repetition.<br><br>
+                Lest see how to adjust the height of <b>#main</b>:<br>
+                <pre><div>JS / JQuery</div>&lt;script&gt;
+   $(document).ready(function() {
+      wh = $(window).height();
+      $("#main").css({
+         "height":wh+"px"
+      });
+   });
+&lt;/script&gt;</pre>
+                <hr>
+                We will use another div container:<br>
+                <pre><div>HTML</div>&lt;div id="walls"&gt;
+&lt;/div&gt;</pre>
+                located inside <b>#main</b> with this CSS:<br>
+                <pre><div>CSS</div>#walls {
+   position: absolute;
+   width: 293px;
+   height: 360px;
+   top: 42px;
+   left: 32px;
+}</pre>
+                <b>#walls</b> contains the ball and will help us define where the ball will bounce.
+                <br><br>
+                <div class="notes">
+                    <div>
+                        <b>REMEMBER:</b> The CSS classes are preceded by <b>.</b> (point) and IDs by <b>#</b>.
+                    </div>
+                </div>
+                <hr>
+                There are 3 players lines, located inside <b>#main</b> and will contain the players and the rod:<br>
+                <pre><div>HTML</div>&lt;div class="players_line" id="players_line_1" style="top:50px;"&gt;
+   &lt;div class="sticks"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="players_line" id="players_line_2" style="top:145px;"&gt;
+   &lt;div class="sticks"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="players_line" id="players_line_3" style="top:260px;"&gt;
+   &lt;div class="sticks"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+                The player lines shares the following class:<br>
+                <pre><div>CSS</div>.players_line {
+   position: absolute;
+   width: 100%;
+   height: 66px;
+   left: 0;
+}</pre>
+                The rods inside each <b>players_line</b> shares the following class:<br>
+                <pre><div>CSS</div>.sticks {
+    position: absolute;
+    width: 360px;
+    height: 20px;
+    left: 0;
+    top: 25px;
+    background-image:url(rod.png);
+}</pre>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> The players and the ball will be added in the next steps. So, be patient.
+                    </div>
+                </div>
+                <br>
+                <div class="letmesee" id="gamefield">
+                    CLICK HERE TO SEE:<br>
+                    GAME FIELD<br>
+                    <span style="font-size:15px;">
+                        (walls shown with red border,<br>
+                        players_line with blue border.)
+                    </span>
+                </div><br>
+                <div class="next" id="next_3">Next: Players &amp; Movement</div>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+            <div class="tutorial_content" style="display:none;">
+                Now we are going to place the players on the field.<br><br>
+                Inside the first <b>.players_line</b> is placed the goalkeeper:<br>
+                <pre><div>HTML</div>&lt;div class="players"
+style="left: 162px;background-position:35px 0px;"&gt;&lt;/div&gt;</pre>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> The left property (162px) shown the goalkeeper centered in the field. But later, at
+                        each start of the game, this attribute will be random.
+                    </div>
+                </div><br>
+                It's time to place the two defenders on <b>players_line_2</b>, centered in the field:<br>
+                <pre><div>HTML</div>&lt;div class="players" style="left:92px;background-position:0 0;"&gt;&lt;/div&gt;
+&lt;div class="players" style="left:232px;background-position:-35px 0;"&gt;&lt;/div&gt;</pre>
+                Finally, let's place the midfielders on <b>players_line_3</b>:<br>
+                <pre><div>HTML</div>&lt;div class="players" style="left:112px;background-position:-70px 0;"&gt;&lt;/div&gt;
+&lt;div class="players" style="left:212px;background-position:-105px 0;"&gt;&lt;/div&lt;</pre>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> The <b>background-position</b> property for each player will be changed at game
+                        start. <b>players.png</b> is made up of two lines of players. Each line contains 6 players (the
+                        player on the right is the goalkeeper).
+                    </div>
+                </div><br>
+                <div class="letmesee" id="players">
+                    CLICK HERE TOo SEE:<br>
+                    PLAYERS POSITION<br>
+                </div><br>
+                <hr>
+                <strong>Players Movements:</strong><br><br>
+                Let's define some global variables:<br>
+                &nbsp;&nbsp;&nbsp;a) <b>playing</b>: to know is the players moves.<br>
+                &nbsp;&nbsp;&nbsp;b) <b>direction_1</b>, <b>direction_2</b> &amp; <b>direction_3</b>: to define in which
+                direction the players move..<br>
+                <pre><div>JS / JQuery</div>var playing = true;
+var direction_1, direction_2, direction_3;</pre>
+                To define in which direction the players move, let's use:
+                <pre><div>JS / JQuery</div>direction_1 = Math.floor(Math.random()*500)%2;
+direction_2 = Math.floor(Math.random()*500)%2;
+direction_3 = Math.floor(Math.random()*500)%2;</pre>
+                A value of <b>0</b> will move the player to the left.<br>
+                A value of <b>1</b> will move the player to the right.<br>
+                <br>
+                There are 3 functions to move the players, called when the game start:<br>
+                <pre><div>JS / JQuery</div>move_players_1();
+move_players_2();
+move_players_3();
+</pre>
+                As you have already guessed, each function moves the players of each line.<br>
+                <pre><div>JS / JQuery</div>function move_players_1() {
+   if (playing) {
+      left_1 = (parseInt($("#players_line_1 .players:eq(0)").css("left"))+(direction_1===0?-1:1));
+      $("#players_line_1 .players:eq(0)").css("left",left_1+"px");
+      if (left_1&gt;210) {
+         direction_1 = 0;
+      }
+      if (left_1&lt;105) {
+         direction_1 = 1;
+      }
+      setTimeout(move_players_1, 15);
+   }
+}</pre>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> The <b>move_players_2()</b> and <b>move_players_3</b> functions are very similar to
+                        <b>move_players_1()</b>. You have the task of studying them in the source code.
+                    </div>
+                </div><br>
+                <div class="letmesee" id="players_movement">
+                    CLICK HERE TO SEE:<br>
+                    PLAYERS MOVEMENT<br>
+                </div><br>
+                <div class="next" id="next_4">Next: Ball &amp; Movement</div>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+            <div class="tutorial_content" style="display:none;">
+                It's time to place the ball in the field. The <b>#ball</b> div is located inside <b>#walls</b>.<br>
+                The <b>#ball</b> div looks like this:<br>
+                <pre><div>HTML</div>&lt;div id="ball"&gt;
+   &lt;div id="ball_direction"&gt;&lt;/div&gt;
+   &lt;div id="ball_image"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+                As you can see, <b>#ball</b> is a container. Inside this container are the image of the ball and the
+                direction in which the ball will be kicked.<br>
+                <pre><div>CSS</div>#ball {
+   position:absolute;
+   top:330px;
+   left:130px;
+   width:33px;
+   height:33px;
+   display:none;
+}
+#ball_image {
+   position:absolute;
+   top:0;
+   left:0;
+   width:33px;
+   height:33px;
+   background-image:url(ball.png);
+}
+#ball_direction {
+   position:absolute;
+   width:32px;
+   height:100px;
+   bottom:16px;
+   left:0;
+   background-image:url(ball_direction.png);
+   transform-origin: center bottom;
+   animation:directions 0.4s steps(10) infinite;
+}
+@keyframes directions {
+   100% {background-position: -320px; }
+}</pre>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> Remember to use:<br>
+                        <b>-webkit-</b>, <b>-moz-</b>, <b>-ms-</b> and <b>-o-</b> prefixes to ensure cross-browser
+                        compatibility.
+                    </div>
+                </div>
+                <br>
+                <div class="letmesee" id="see_ball">
+                    CLICK HERE TO SEE:<br>
+                    BALL POSITION<br>
+                    <span style="font-size:15px;">
+                        (with ball_direction visible)
+                    </span>
+                </div>
+                <hr>
+                Ball Direction<br><br>
+                The class <b>.slider</b> provides an easy way to select the angle at which the ball will be kicked. It's
+                a HTML range input with an <b>id="deg"</b>. And is located inside <b>#main</b>.
+                <pre><div>HTML</div>&lt;input id="deg" class="slider" type="range" min="-60" max="60" value="0"/&gt;</pre>
+                As you can see, the values of the slider goes from -60&deg; to 60&deg;.
+                We are using a <b>JQuery on input</b> function to select the ball direction, rotating the div
+                <b>#ball_direction</b>:
+                <pre><div>JS / JQuery</div>$("#deg").on("input",
+function() {
+   degrees = $(this).val()*-1;
+   rotate_ball(degrees);
+});
+</pre>
+                It calls a function named <b>rotate_ball</b> each time the player move the slider left or right. We must
+                see this function now:<br>
+                <pre><div>JS / JQuery</div>function
+rotate_ball(degrees) {
+   $("#ball_direction").css({
+      "transform": "rotate("+degrees+"deg)"
+   });
+}</pre>
+                <div class="letmesee" id="balldirection">
+                    CLICK HERE TO SEE:<br>
+                    BALL DIRECTION<br>
+                </div>
+                <hr>
+                Ball Movement<br><br>
+                The ball is kicked when the player release the <b>.slider</b> thumb. We use a <b>JQuery on change</b>
+                function to do this:
+                <pre><div>JS / JQuery</div>$("#deg").on("change",
+function() {
+   var ball_top = 330;
+   var ball_left = 130;
+   var value = $(this).val();
+   var degrees = 90-(value*-1);
+   var tangent = Math.tan(degrees*Math.PI/180);
+   $("#ball_direction,#deg").hide();
+   $("#ball").stop().animate({
+      "top":"0px"
+   },{
+      duration:600,
+      easing:"linear",
+      step:function() {
+         // angle settings
+      },
+      complete:function() {
+         // it is a goal?
+      }
+   });
+});
+</pre>
+                This animate using <b>JQuery animate</b> to to move the ball until top is zero. This will last 600
+                milliseconds (duration). If we used the function shown, the ball will move following a straight line,
+                regardless of the selected angle.<br><br>
+                <div class="letmesee" id="ballmovement">
+                    CLICK HERE TO SEE:<br>
+                    BALL MOVEMENT<br>
+                    <span style="font-size:15px;">
+                        (with no angle direction<br>
+                        and no wall detection)
+                    </span>
+                </div><br>
+                We will use the <b>step</b> callback function to set the <b>left</b> position of <b>#ball</b> doing some
+                math:<br>
+                Previously we a variable named <b>tangent</b>:
+                <pre><div>JS / JQuery</div>var tangent =
+Math.tan(degrees*Math.PI/180);</pre>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> You can visit this great code from <b>Michael Simnitt</b> on <b>SOLOLEARN</b>, who
+                        explain the trigonometric functions and their use in game development<br>
+                        <a class="external" href="https://code.sololearn.com/WRGDef71sx8g/#html" target="_blank">Game
+                            Design Essentials, Part 1</a>
+                    </div>
+                </div><br>
+                To find that tangent value, we need to convert from degrees to radians using
+                <b>degrees*Math.PI/180</b>.<br><br>
+                Now let's see what is executed in each step of the animation:<br>
+                <pre><div>JS / JQuery</div>distance = ball_top - 
+parseInt($(this).css("top"));
+x = distance/tangent;
+new_left = ball_left+x;
+$("#ball").css("left",new_left+"px");
+if ( new_left&lt;=0 || new_left&lt;265) {
+   ball_left = new_left;
+   ball_top = parseInt($(this).css("top"));
+   value *= -1;
+   degrees = degrees = 90-(value*-1);
+   tangent = Math.tan(degrees*Math.PI/180);
+}
+// collision handling
+});</pre>
+                In the next chapter we will see the handling of collisions (ball and player).<br><br>
+                <div class="letmesee" id="ballmovement_angle">
+                    CLICK HERE TO SEE:<br>
+                    BALL MOVEMENT<br>
+                    <span style="font-size:15px;">
+                        (with angle direction<br>
+                        and wall detection)
+                    </span>
+                </div><br>
+                When the ball animation ends the <b>complete</b> callback function is called:
+                <pre><div>JS / JQuery</div>var final_left =
+parseInt($("#ball").css("left"));
+if (final_left&gt;=93 && final_left&lt;=167) {
+   goal();
+} else {
+   fail();
+}</pre>
+                This is easy to explain: if the <b>left</b> property at the end is between 93 and 167, is a goal, else
+                you fail. Two chapters later we will see these functions.<br>
+                <br>
+                <div class="next" id="next_5">Next: Collisions</div>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+            <div class="tutorial_content" style="display:none;">
+                Remember the <b>// collision handling</b> comment in the <b>step</b> callback on <b>#ball</b> animation?
+                Now its time to see how we will handle the collision:<br>
+                <pre><div>JS / JQuery</div>ball_offset = 
+   $(this).offset();
+$(".players").each(function() {
+   player_offset = $(this).offset();
+   if (collided(ball_offset, player_offset)) {
+      playing=false;
+      $("#ball").stop();
+      fail();
+      return false;
+   }
+});</pre>
+                Here we go through all the <b>.players</b> elements using jQuery function <b>each()</b>.<br><br>
+                For each player we get their absolute left and right (based on the page and not on their container).
+                That's why we use JQuery's <b>offset()</b>.<br><br>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> The <b>return false;</b> inside <b>each</b> function leaves the each cycle without
+                        processing the following elements.
+                    </div>
+                </div><br>
+                We have a function called collided that returns if the ball and feet of each player match.<br><br>
+                <pre><div>JS / JQuery</div>function collided(b_offset,p_offset) {
+   b_top = b_offset.top;
+   b_left = b_offset.left;
+   p_top = p_offset.top+66;
+   p_left = p_offset.left;
+   if ((b_left+33)&gt;=p_left &&
+      b_left&lt;=(p_left+35) &&
+      b_top&gt;=(p_top-20) &&
+      b_top&lt;=p_top) {
+      return true;
+   }
+   return false;
+}</pre>
+                <div class="notes">
+                    <div>
+                        <b>NOTE:</b> To be honest, this was the part that was most difficult for me. I tried several
+                        approaches, but when I thought about using <b>offset</b>, everything became simple.
+                    </div>
+                </div><br>
+                The first part of the conditional:<br>
+                <pre><div>JS / JQuery</div>(b_left+33)&gt;=p_left &&
+b_left&lt;=(p_left+35)</pre>
+                checks if the ball is horizontally between the player measures. We add 33 pixels to the ball because
+                that is its width, and we add 35 pixels to the player since that is the width of each player.<br><br>
+                The second part of the conditional:<br>
+                <pre><div>JS / JQuery</div>b_top&gt;=(p_top-20) &&
+b_top&lt;=p_top</pre>
+                checks if the ball is vertically between the player feet. We add 66 pixels to the player since that is
+                the height of each player. We subtract <b>-20px</b> on players top <b>(p_top-20)</b> because we want to
+                check just is the feet of each players collide.<br><br>
+                In the next chapter we will see the functions <b>goal()</b> and <b>fail()</b>, which show if the player
+                scored a goal or failed in the attempt.<br>
+                <br>
+                <div class="next" id="next_6">Next: goal() &amp; fail()</div>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+            <div class="tutorial_content" style="display:none;">
+                As we have seen in the previous chapters, <b>goal()</b> and <b>fail()</b> functions have been used:<br>
+                <hr>
+                Goal:<br>
+                <pre><div>JS / JQuery</div>function goal() {
+  var goals = parseInt($("#goals").html())+1;
+  $("#goals").html(goals);
+  playing = false;
+  $("#ball").stop().animate({
+    "top":"-30px"
+  },{
+    duration:100,
+    easing:"linear",
+    complete: function() {
+      $("#goal").fadeTo(10,1,function() {
+        $("#goal").stop().animate({
+          "background-size":"100%"
+        },{
+          duration:600,
+          easing:"linear",
+          complete: function() {
+            $("#playagain").show();
+          }
+        });
+      });
+    }
+  });
+}</pre>
+                At the beginning, we increase the value of the div <b>#goal</b> by one. Then we set the variable
+                <b>playing = false</b>, this causes the player's animations to stop.<br><br>
+                Finally, we will make the ball (currently with top=0) get inside the goal (top=-30), shows the image
+                <b>goal.png</b> coming from behind, and shows the button <b>#playagain</b>.<br>
+                <hr>
+                Failing<br>
+                <pre><div>JS / JQuery</div>function fail() {
+  playing = false;
+  var ball_top = parseInt($("#ball").css("top"));
+  $("#ball").stop().animate({
+    "top":(ball_top+50)+"px"
+  },{
+    duration:400,
+    easing:"linear",
+    complete: function() {
+      $("#playagain").show();
+    }
+  });
+}</pre>
+                <br>
+                First, set the variable <b>playing = false</b> to stop players animations.<br><br>
+                Then, we make a small animation to show that the ball bounced (either from the end line or from a
+                player), and shows the <b>#playagain</b> button.<br><br>
+                <div class="next" id="next_7">Next: Final By <strong>Sumalya Chatterjee</strong></div>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+            <div class="tutorial_content" style="display:none;">
+                It's time to mention a function named <b>start()</b>. It is called when the user presses the <b>Play</b>
+                or <b>Kick Again</b> button.<br>
+                <pre><div>JS / JQuery</div>function start() {
+  $("#instructions").hide();
+  $("#goal").fadeTo(100,0,function() {
+    $("#goal").css("background-size","1%");
+  });
+  playing = true;
+  $("#playagain").html("Kick Again").hide();
+  $("#ball,#ball_direction,#deg").show();
+  $("#deg").val(0);
+  rotate_ball(0);
+  $("#ball").css({
+    "top":"330px",
+    "left":"130px"
+  });
+  team = Math.floor(Math.random()*500)%2;
+  $(".players").each(function() {
+    bgp = $(this).css("background-position").split(" ");
+    bgp = bgp[0]+" "+(team*-66)+"px";
+    $(this).css("background-position",bgp);
+  });
+  pos = Math.floor(Math.random()*100)+50;
+  $("#players_line_2 .players:eq(0)").css({
+    "left":(pos)+"px"
+  });
+  $("#players_line_2 .players:eq(1)").css({
+    "left":(pos+140)+"px"
+  });
+  pos = Math.floor(Math.random()*100)+50;
+  $("#players_line_3 .players:eq(0)").css({
+    "left":(pos)+"px"
+  });
+  $("#players_line_3 .players:eq(1)").css({
+    "left":(pos+140)+"px"
+  });
+  $(".players").show();
+  direction_1 = Math.floor(Math.random()*500)%2;
+  direction_2 = Math.floor(Math.random()*500)%2;
+  direction_3 = Math.floor(Math.random()*500)%2;
+  move_players_1();
+  move_players_2();
+  move_players_3();
+}</pre>
+                <ol>
+                    <li>
+                        Hide <b>#instructions</b>
+                    </li>
+                    <li>
+                        Hide <b>#goal</b><br>
+                        (the goal alert)
+                    </li>
+                    <li>
+                        set <b>playing = true</b><br>
+                        (players animation enabled)
+                    </li>
+                    <li>
+                        show <b>#ball</b>, <b>#ball_direction</b> and <b>.slider</b>
+                    </li>
+                    <li>
+                        set <b>.slider</b> value to 0, and<br>
+                        rotates <b>#ball_direction</b> to 0
+                    </li>
+                    <li>
+                        put the <b>#ball</b> in its starting place<br>
+                        (top:330px, left:130px)
+                    </li>
+                    <li>
+                        set <b>position-background</b> based<br>
+                        on team variable
+                    </li>
+                    <li>
+                        Create variables with random values that will define: the initial positions of the players and
+                        the direction in which the players move.
+                    </li>
+                    <li>
+                        And finally, start the movement of the players.
+                    </li>
+                </ol>
+                <hr>
+                Final Thoughs<br>
+                <ul>
+                    <li>
+                        There's always room for improvements in any game we write. For example, we could improve the way
+                        the ball moves when we score.
+                    </li>
+                    <li>
+                        I am pretty sure that the whole game can be implemented in a more effective way, but at the
+                        moment this is what I can do with my knowledge. I promise to continue learning from all of you.
+                    </li>
+                    <li>
+                        If you still have any questions about the game, please do not hesitate to comment.
+                    </li>
+                </ul>
+                <hr>
+                <div class="next" id="next_8">Play the Game</div>
+            </div>
+        </div>
+    </div>
+    <div class="back">Back to Tutorial</div>
+    <!-- partial -->
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
